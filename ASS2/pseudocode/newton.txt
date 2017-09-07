@@ -1,0 +1,21 @@
+sqrt_to_find = 13
+start_number = 3
+epsilon = 0.00000000001
+
+lastX = start_number
+nextX = lastX + 0.0000000001
+
+while abs(lastX - nextX) > epsilon
+    newY = nextX ^ 2 - sqrt_to_find
+    lastX = nextX
+    nextX = lastX - newY / derivative(lastX, epsilon)
+
+    print nextX
+    add nextX into array
+end while
+
+answer = nextX
+print answer
+
+plot development graph
+show graph

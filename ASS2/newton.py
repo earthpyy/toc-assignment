@@ -22,7 +22,7 @@ def f(x):
 def solve(x0, h):
     lastX = Decimal(x0)
     nextX = lastX + Decimal(10) * h
-    while (abs(lastX - nextX) > h):
+    while abs(lastX - nextX) > h:
         newY = f(nextX)
         lastX = nextX
         nextX = lastX - newY / derivative(lastX, h)

@@ -1,0 +1,5 @@
+load LS.CSV into array x,y
+z = polyfit(x, y, 1)
+p = poly1d(z)
+plot(x, y, p()) into figure
+show graph
