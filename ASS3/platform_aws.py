@@ -16,9 +16,3 @@ for i in range(10**4):
     f = open('platform.txt', 'a')
     print(i + 1, ": ", ans, file=f)
     f.close()
-
-plt.bar(range(max_i), ans, 0.9, edgecolor='b')
-plt.title("Platform's PRNG")
-
-# plt.ylim(900000, 1100000)
-plt.show()
