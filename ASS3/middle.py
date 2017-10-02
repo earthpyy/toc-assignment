@@ -26,7 +26,7 @@ for i in range(rr_times):
 ans[0] += r_times - rr_times
 
 f = open('middle.txt', 'w')
-print(i + 1, ": ", ans, file=f)
+print(ans, file=f)
 f.close()
 
 plt.bar(range(max_i), ans, 0.9, edgecolor='b')
