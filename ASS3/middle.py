@@ -8,12 +8,14 @@ n = len(str(seed))
 # max integer
 max_i = 100
 # random times
-r_times = 20
+r_times = 10**11
+# real random times
+rr_times = 20
 
 # print("0000\r", end="")
 
 ans = [0 for i in range(max_i)]
-for i in range(r_times):
+for i in range(rr_times):
     x = (seed**2 % (10 ** (n + n // 2)) // (10 ** (n // 2)))
     ans[x] += 1
     seed = x
@@ -21,7 +23,7 @@ for i in range(r_times):
     print(x)
 
 # zero forever
-ans[0] += (10**11) - 20
+ans[0] += r_times - rr_times
 
 f = open('middle.txt', 'w')
 print(i + 1, ": ", ans, file=f)
