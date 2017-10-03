@@ -1,5 +1,4 @@
 
 .DS_Store
-ASS3/platform.pyc
-ASS3/__pycache__/platform.cpython-36.pyc
+*.pyc
 *.txt
