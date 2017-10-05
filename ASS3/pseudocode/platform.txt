@@ -1,0 +1,6 @@
+loop 10^4 times:
+    loop 10^7 times:
+        ans[randint(0, 99)]++
+    print progress
+    save result to file
+show graph

@@ -1,0 +1,12 @@
+seed = 6
+p = 47
+q = 67
+
+loop 10^4 times:
+    loop 10^7 times:
+        x = (seed^2) % (p * q)
+        ans[x % 100]++
+        seed = x
+    print progress
+    save result to file
+show graph

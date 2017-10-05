@@ -1,0 +1,11 @@
+seed = 32586239
+n = 8
+
+loop 10^4 times:
+    loop 10^7 times:
+        x = ((seed^2) % (10^12)) // (10^4)
+        ans[x % 100]++
+        seed = x
+    print progress
+    save result to file
+show graph
