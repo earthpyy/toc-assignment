@@ -1,0 +1,61 @@
+function printBack(i):
+    if i == -1:
+        return
+
+    printBack(v[i].prev)
+
+    if i != end:
+        print(v[i].name, end=' -> ')
+    else:
+        print(v[i].name)
+    return
+
+load CSV
+d[] = [WEIGHT_TABLE]
+v[] = [VERTEX_DATA]
+v_amount = len(v)
+if v_amount < 3:
+    print('Vertex amount is less than 3!')
+    quit()
+
+input start vertex into start_name
+input end vertex into end_name
+start = getVIndex(start_name)
+end = getVIndex(end_name)
+if !isValidStartEnd():
+    print('Start and/or End vertex is incorrect!')
+    quit()
+
+active = start
+v[start].distance = 0
+loop forever:
+    print('Visiting [VERTEX] name...')
+    loop i from 0 to v_amount:
+        if i != active && isConnected(active, i) && !isVisited(i):
+            sum = v[active].distance + d[active][i]
+            print('Distance form [start_name] to [VERTEX_i] is [sum]')
+            if sum < v[i].distance:
+                print('less than.... so update it.')
+                v[i].distance = sum
+                v[i].prev = active
+            else:
+                print('more than... so keep it.')
+    v[active].visited = True
+
+    min_i = -1
+    loop i from 0 to v_amount:
+        if !isVisited(i) && v[i].distance != INFINITY && (min_i == -1 || v[i].distance < v[min_i].distance)
+            min_i = i
+    if min_i != -1:
+        active = min_i
+    else:
+        print('No vertex to visit anymore.')
+        break
+
+if !isVisited(end):
+    print('End vertex is unreachable!')
+    quit()
+
+print('Shortest path from [start_name] to [end_name] is')
+printBack(end)
+print('with distance from start = [v[end].distance]')

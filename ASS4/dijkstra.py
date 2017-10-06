@@ -16,6 +16,42 @@ v_amount = 0
 start = -1
 end = -1
 
+# check if the given vertex name is exist in CSV
+def isExist(name):
+    for i in range(v_amount):
+        if v[i].name == name:
+            return True
+    return False
+
+# get vertex index from vertex name
+def getVIndex(name):
+    if not isExist(name):
+        return -1
+    for i in range(v_amount):
+        if v[i].name == name:
+            return i
+    return -1
+
+# check if it is correct start/end vertex
+def isValidStartEnd():
+    return start != -1 and end != -1 and start != end
+
+# check if vertex is visited or not
+def isVisited(id):
+    return v[id].visited
+
+# check if two vertex is connected to each other
+def isConnected(id1, id2):
+    return d[id1][id2] != 0 and d[id2][id1] != 0 and id1 != id2
+
+# print all vertex
+def printVertex():
+    for i in range(v_amount):
+        if i < v_amount - 1:
+            print(v[i].name, end=', ')
+        else:
+            print(v[i].name)
+
 # print function using recursion
 def printBack(i):
     if i == -1:
@@ -33,7 +69,7 @@ def printBack(i):
 
 # load data from csv
 print('Loading CSV..')
-with open('/Users/EARTHPYY/Documents/CEProjects/ToC/toc-assignment/ASS4/edgedata.csv', newline='') as f:
+with open('edgedata.csv', newline='') as f:
     reader = csv.reader(f)
     heading = next(reader)
     v_amount = len(heading)
@@ -50,24 +86,17 @@ with open('/Users/EARTHPYY/Documents/CEProjects/ToC/toc-assignment/ASS4/edgedata
         v[i].name = heading[i]
 
 print('CSV loaded!\nFound', v_amount, 'vertices: ', end='')
-for i in range(v_amount):
-    if i < v_amount - 1:
-        print(v[i].name, end=', ')
-    else:
-        print(v[i].name)
+printVertex()
 
 # input start/end vertex
 start_name = input('Start vertex: ')
 end_name = input('End vertex: ')
 # mapping name to index
-for i in range(v_amount):
-    if v[i].name == start_name:
-        start = i
-    elif v[i].name == end_name:
-        end = i
+start = getVIndex(start_name)
+end = getVIndex(end_name)
 
 # check if start/end vertex is correct
-if start + end < 0 or start == end:
+if not isValidStartEnd():
     print('Start and/or End vertex is incorrect!')
     quit()
 print('\nFind shortest path using Dijkstra\'s Algorithm from', v[start].name, 'to', v[end].name, ':')
@@ -82,7 +111,7 @@ while True:
     # find active's neighbor vertex
     for i in range(v_amount):
         # check weather it is visited or not & not itself & connected
-        if i != active and d[active][i] != 0 and not v[i].visited:
+        if i != active and isConnected(active, i) and not isVisited(i):
             # sum = active's distance + weight from active to selected neighbor
             sum = v[active].distance + d[active][i]
             print('  Distance from', v[start].name, 'to', v[i].name, 'is', sum, end='')
@@ -102,7 +131,7 @@ while True:
     min_i = -1
     for i in range(v_amount):
         # check weather it is visited or not and must be neighbor of one of visited vertex
-        if not v[i].visited and v[i].distance != math.inf and (v[i].distance < v[min_i].distance or min_i == -1):
+        if not isVisited(i) and v[i].distance != math.inf and (min_i == -1 or v[i].distance < v[min_i].distance):
             min_i = i
     # if found then set it to be next vertex to visit
     if min_i != -1:
@@ -113,7 +142,7 @@ while True:
         break
 
 # check if end vertex is reachable by check visited status
-if not v[end].visited:
+if not isVisited(end):
     print('End vertex is unreachable!')
     quit()
 
